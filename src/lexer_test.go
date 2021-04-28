@@ -23,7 +23,7 @@ func TestIllegal(t *testing.T) {
 
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -54,7 +54,7 @@ func TestOneCharacterOperator(t *testing.T) {
 
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -86,7 +86,7 @@ func TestEOF(t *testing.T) {
 
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -137,7 +137,7 @@ func TestDelimiters(t *testing.T) {
 	}
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -145,8 +145,8 @@ func TestDelimiters(t *testing.T) {
 
 }
 
-func TestAssigment(t *testing.T) {
-	source := "variable cinco = 5;"
+func TestAssignment(t *testing.T) {
+	source := "let five = 5;"
 	lexer := NewLexer(source)
 
 	tokens := []Token{}
@@ -158,11 +158,11 @@ func TestAssigment(t *testing.T) {
 	expectedTokens := []Token{
 		{
 			TokenType: LET,
-			Literal:   "variable",
+			Literal:   "let",
 		},
 		{
 			TokenType: IDENT,
-			Literal:   "cinco",
+			Literal:   "five",
 		},
 		{
 			TokenType: ASSING,
@@ -183,7 +183,7 @@ func TestAssigment(t *testing.T) {
 	}
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -191,7 +191,7 @@ func TestAssigment(t *testing.T) {
 }
 
 func TestFunctionDeclaration(t *testing.T) {
-	source := "variable suma = procedimiento(x, y) {\n\tx + y;\n};"
+	source := "let sum = fun(x, y) {\n\tx + y;\n};"
 
 	lexer := NewLexer(source)
 
@@ -201,10 +201,10 @@ func TestFunctionDeclaration(t *testing.T) {
 	}
 
 	expectedTokens := []Token{
-		{TokenType: LET, Literal: "variable"},
-		{TokenType: IDENT, Literal: "suma"},
+		{TokenType: LET, Literal: "let"},
+		{TokenType: IDENT, Literal: "sum"},
 		{TokenType: ASSING, Literal: "="},
-		{TokenType: FUNCTION, Literal: "procedimiento"},
+		{TokenType: FUNCTION, Literal: "fun"},
 		{TokenType: LPAREN, Literal: "("},
 		{TokenType: IDENT, Literal: "x"},
 		{TokenType: COMMA, Literal: ","},
@@ -223,7 +223,7 @@ func TestFunctionDeclaration(t *testing.T) {
 	t.Log(expectedTokens)
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -232,8 +232,7 @@ func TestFunctionDeclaration(t *testing.T) {
 }
 
 func TestFunctionCall(t *testing.T) {
-	//t.Error("Not Implemented yet")
-	source := "variable resultado = suma(dos, tres);"
+	source := "let result = sum(two, three);"
 
 	lexer := NewLexer(source)
 
@@ -244,14 +243,14 @@ func TestFunctionCall(t *testing.T) {
 	}
 
 	expectedTokens := []Token{
-		{TokenType: LET, Literal: "variable"},
-		{TokenType: IDENT, Literal: "resultado"},
+		{TokenType: LET, Literal: "let"},
+		{TokenType: IDENT, Literal: "result"},
 		{TokenType: ASSING, Literal: "="},
-		{TokenType: IDENT, Literal: "suma"},
+		{TokenType: IDENT, Literal: "sum"},
 		{TokenType: LPAREN, Literal: "("},
-		{TokenType: IDENT, Literal: "dos"},
+		{TokenType: IDENT, Literal: "two"},
 		{TokenType: COMMA, Literal: ","},
-		{TokenType: IDENT, Literal: "tres"},
+		{TokenType: IDENT, Literal: "three"},
 		{TokenType: RPAREN, Literal: ")"},
 		{TokenType: SEMICOLON, Literal: ";"},
 		{TokenType: EOF, Literal: ""},
@@ -259,7 +258,7 @@ func TestFunctionCall(t *testing.T) {
 
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -268,35 +267,35 @@ func TestFunctionCall(t *testing.T) {
 }
 
 func TestControlStatement(t *testing.T) {
-	source := "si (5 < 10) {\n\tregresa verdadero;\n} si_no {\n\tregresa falso;\n}"
+	source := "if (5 < 10) {\n\treturn  true;\n} else {\n\treturn false;\n}"
 	lexer := NewLexer(source)
 	tokens := []Token{}
 	for i := 0; i < 17; i++ {
 		tokens = append(tokens, lexer.NextToken())
 	}
 	expectedTokens := []Token{
-		{TokenType: IF, Literal: "si"},
+		{TokenType: IF, Literal: "if"},
 		{TokenType: LPAREN, Literal: "("},
 		{TokenType: INT, Literal: "5"},
 		{TokenType: LT, Literal: "<"},
 		{TokenType: INT, Literal: "10"},
 		{TokenType: RPAREN, Literal: ")"},
 		{TokenType: LBRACE, Literal: "{"},
-		{TokenType: RETURN, Literal: "regresa"},
-		{TokenType: TRUE, Literal: "verdadero"},
+		{TokenType: RETURN, Literal: "return"},
+		{TokenType: TRUE, Literal: "true"},
 		{TokenType: SEMICOLON, Literal: ";"},
 		{TokenType: RBRACE, Literal: "}"},
-		{TokenType: ELSE, Literal: "si_no"},
+		{TokenType: ELSE, Literal: "else"},
 		{TokenType: LBRACE, Literal: "{"},
-		{TokenType: RETURN, Literal: "regresa"},
-		{TokenType: FALSE, Literal: "falso"},
+		{TokenType: RETURN, Literal: "return"},
+		{TokenType: FALSE, Literal: "false"},
 		{TokenType: SEMICOLON, Literal: ";"},
 		{TokenType: RBRACE, Literal: "}"},
 	}
 
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -326,7 +325,7 @@ func TestTwoCharacterOperator(t *testing.T) {
 	}
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
@@ -334,7 +333,7 @@ func TestTwoCharacterOperator(t *testing.T) {
 }
 
 func TestVariableLettersAndNumbers(t *testing.T) {
-	source := "variable suma_1 = suma_casa2 + 5;"
+	source := "let sum_1 = sum_house2 + 5;"
 
 	lexer := NewLexer(source)
 
@@ -345,10 +344,10 @@ func TestVariableLettersAndNumbers(t *testing.T) {
 	}
 
 	expectedTokens := []Token{
-		{TokenType: LET, Literal: "variable"},
-		{TokenType: IDENT, Literal: "suma_1"},
+		{TokenType: LET, Literal: "let"},
+		{TokenType: IDENT, Literal: "sum_1"},
 		{TokenType: ASSING, Literal: "="},
-		{TokenType: IDENT, Literal: "suma_casa2"},
+		{TokenType: IDENT, Literal: "sum_house2"},
 		{TokenType: PLUS, Literal: "+"},
 		{TokenType: INT, Literal: "5"},
 		{TokenType: SEMICOLON, Literal: ";"},
@@ -356,7 +355,7 @@ func TestVariableLettersAndNumbers(t *testing.T) {
 	t.Log(tokens)
 	for i := 0; i < len(tokens); i++ {
 		if tokens[i].Literal != expectedTokens[i].Literal {
-			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for sencond token", tokens[i].Literal, expectedTokens[i].Literal)
+			t.Errorf("Expected these tokes have the same Literal value, but got %s for first and %s for second token", tokens[i].Literal, expectedTokens[i].Literal)
 		} else if tokens[i].TokenType != expectedTokens[i].TokenType {
 			t.Errorf("Expected these tokens was be the same TokenType , but got this [%s,%s]", tokens[i].TokenType, expectedTokens[i].TokenType)
 		}
