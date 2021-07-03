@@ -7,33 +7,38 @@ type TokenType string
 
 // Enum for type of tokens
 const (
-	ASSING         TokenType = "ASSING"
+	ALL            TokenType = "ALL"
+	AS             TokenType = "AS"
+	BASE           TokenType = "BASE"
+	BEFORE         TokenType = "BEFORE"
+	BODY           TokenType = "BODY"
 	COMMA          TokenType = "COMMA"
-	DIV            TokenType = "DIV"
-	ELSE           TokenType = "ELSE"
+	COLON          TokenType = "COLON"
+	DELETE         TokenType = "DELETE"
+	DOT            TokenType = "DOT"
 	EOF            TokenType = "EOF"
-	EQ             TokenType = "EQ"
-	FALSE          TokenType = "FALSE"
-	FUNCTION       TokenType = "FUNCTION"
-	GT             TokenType = "GT"
+	ERRORSHANDLERS TokenType = "ERRORSHANDLERS"
+	FROM           TokenType = "FROM"
+	GET            TokenType = "GET"
+	HANDLER        TokenType = "HANDLER"
+	HEAD           TokenType = "HEAD"
+	HEADERS        TokenType = "HEADERS"
 	IDENT          TokenType = "IDENT"
-	IF             TokenType = "IF"
+	IMPORT         TokenType = "IMPORT"
 	ILLEGAL        TokenType = "ILLEGAL"
-	INT            TokenType = "INT"
 	LBRACE         TokenType = "LBRACE"
-	LET            TokenType = "LET"
 	LPAREN         TokenType = "LPAREN"
-	LT             TokenType = "LT"
-	MINUS          TokenType = "MINUS"
-	MULTIPLICATION TokenType = "ADD"
-	NEGATION       TokenType = "NEGATION"
-	NOTEQ          TokenType = "NOTEQ"
-	PLUS           TokenType = "PLUS"
+	OPTIONS        TokenType = "OPTIONS"
+	PARAMS         TokenType = "PARAMS"
+	PATCH          TokenType = "PATCH"
+	POST           TokenType = "POST"
+	PUT            TokenType = "PUT"
+	QUOTES         TokenType = "QUOTES"
 	RBRACE         TokenType = "RBRACE"
-	RETURN         TokenType = "RETURN"
 	RPAREN         TokenType = "RPAREN"
+	SERVICE        TokenType = "SERVICE"
+	SERVICEOPTIONS TokenType = "SERVICEOPTIONS"
 	SEMICOLON      TokenType = "SEMICOLON"
-	TRUE           TokenType = "TRUE"
 )
 
 // Token - Represent a minimun unit of sol programing language
@@ -50,13 +55,25 @@ func (t Token) ToString() string {
 func lookupTokenType(literal string) TokenType {
 	keywords := map[string]TokenType{}
 
-	keywords["false"] = FALSE
-	keywords["fun"] = FUNCTION
-	keywords["return"] = RETURN
-	keywords["if"] = IF
-	keywords["else"] = ELSE
-	keywords["let"] = LET
-	keywords["true"] = TRUE
+	keywords["as"] = AS
+	keywords["before"] = BEFORE
+	keywords["body"] = BODY
+	keywords["DELETE"] = DELETE
+	keywords["errorsHandlers"] = ERRORSHANDLERS
+	keywords["from"] = FROM
+	keywords["GET"] = GET
+	keywords["handler"] = HANDLER
+	keywords["HEAD"] = HEAD
+	keywords["headers"] = HEADERS
+	keywords["import"] = IMPORT
+	keywords["OPTIONS"] = OPTIONS
+	keywords["options"] = SERVICEOPTIONS
+	keywords["params"] = PARAMS
+	keywords["PATCH"] = PATCH
+	keywords["POST"] = POST
+	keywords["PUT"] = PUT
+	keywords["service"] = SERVICE
+	keywords["base"] = BASE
 
 	tt := keywords[literal]
 

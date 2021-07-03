@@ -15,27 +15,17 @@ type Lexer struct {
 }
 
 // NextToken -  Next token
-func (l *Lexer) NextToken() Token {
+func (l *Lexer) NextToken() *Token {
 	skipWhiteSpace(l)
 	var tt TokenType
 	var literal string
-	if l.character.isAssing() {
-		if l.nextCharacter().matchWith("^=$") {
-			tt, literal = l.makeTwoCharacterToken(EQ)
-		} else {
-			tt = ASSING
-			literal = string(l.character)
-		}
-		l.readCharacter()
-
-	} else if l.character.isPlus() {
-		tt = PLUS
+	if l.character.isLetter() {
+		literal = l.readIdentifier()
+		tt = lookupTokenType(literal)
+	} else if l.character.isColon() {
 		literal = string(l.character)
+		tt = COLON
 		l.readCharacter()
-
-	} else if l.character.isEOF() {
-		literal = string(l.character)
-		tt = EOF
 	} else if l.character.isLParen() {
 		literal = string(l.character)
 		tt = LPAREN
@@ -66,57 +56,34 @@ func (l *Lexer) NextToken() Token {
 		tt = SEMICOLON
 		l.readCharacter()
 
-	} else if l.character.isLT() {
+	} else if l.character.isDot() {
 		literal = string(l.character)
-		tt = LT
+		tt = DOT
 		l.readCharacter()
 
-	} else if l.character.isGT() {
+	} else if l.character.isQuote() {
 		literal = string(l.character)
-		tt = GT
+		tt = QUOTES
 		l.readCharacter()
 
-	} else if l.character.isMinus() {
+	} else if l.character.isAll() {
 		literal = string(l.character)
-		tt = MINUS
+		tt = ALL
 		l.readCharacter()
 
-	} else if l.character.isDiv() {
+	} else if l.character.isEOF() {
 		literal = string(l.character)
-		tt = DIV
-		l.readCharacter()
-
-	} else if l.character.isAdd() {
-		literal = string(l.character)
-		tt = MULTIPLICATION
-		l.readCharacter()
-
-	} else if l.character.isNegation() {
-		if l.nextCharacter().matchWith("^=$") {
-			tt, literal = l.makeTwoCharacterToken(NOTEQ)
-		} else {
-			literal = string(l.character)
-			tt = NEGATION
-		}
-		l.readCharacter()
-
-	} else if l.character.isLetter() {
-		literal = l.readIdentifier()
-		tt = lookupTokenType(literal)
-	} else if l.character.isNumber() {
-		literal = l.readNumber()
-		tt = INT
+		tt = EOF
 	} else {
 		literal = string(l.character)
 		tt = ILLEGAL
 		l.readCharacter()
-
 	}
-	newToken := Token{
+
+	return &Token{
 		TokenType: tt,
 		Literal:   literal,
 	}
-	return newToken
 }
 
 func (l *Lexer) readCharacter() {
@@ -139,17 +106,6 @@ func (l *Lexer) readIdentifier() string {
 
 }
 
-func (l *Lexer) readNumber() string {
-	initialPosition := l.position
-
-	for l.character.isNumber() {
-		l.readCharacter()
-	}
-
-	return strings.Join(l.source[initialPosition:l.position], "")
-
-}
-
 func skipWhiteSpace(l *Lexer) {
 	regSpace, err := regexp.Compile(fmt.Sprintf("^%s$", regexp.QuoteMeta(" ")))
 	if err != nil {
@@ -160,21 +116,6 @@ func skipWhiteSpace(l *Lexer) {
 		l.readCharacter()
 		isSpace = regSpace.MatchString(string(l.character))
 	}
-}
-
-func (l *Lexer) makeTwoCharacterToken(tokentype TokenType) (TokenType, string) {
-	prefix := l.character
-	l.readCharacter()
-	suffix := l.character
-
-	return tokentype, fmt.Sprintf("%s%s", prefix, suffix)
-}
-
-func (l Lexer) nextCharacter() character {
-	if l.readPosition >= len(l.source) {
-		return character("")
-	}
-	return character(l.source[l.readPosition])
 }
 
 // NewLexer create a lexer with string passed as parameter
